@@ -1,0 +1,89 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>SpringBnb</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" th:href="@{ccs/bootstrap.min.css}">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="script.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+		<a class="navbar-brand" href="#">Crud App</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarColor01" aria-controls="navbarColor01"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">la list des Produits
+						<span class="sr-only">(current)</span>
+				</a></li>
+	
+			</ul>
+			
+		</div>
+	</nav>
+	<main>
+		<div class="container mt-4">
+		
+		<div class="panel-body">
+		<form th:action="@{/index}" method="get">
+		<label>Mot Clé</label>
+		<input type="text" name="motCle"/>
+		<button type="submit" class="btn btn-primary">Chercher !</button>
+		
+		</form>
+		
+		</div>
+		
+		<table class="table">
+		<thead class="thead-dark">
+		<tr>
+			<th>DES</th><th>PRIX</th><th>QTE</th><th>Action</th>
+		</tr>
+		</thead>
+		<tr th:each="p:${listProduits}">
+			
+			<td th:text="${p.designation}"></td>
+			<td th:text="${p.prix}"></td>
+			<td th:text="${p.quantite}"></td>
+			<td >
+				<a class="btn btn-danger" onclick="return confirm('Etes vous sure ?')" th:href="@{/delete(id=${p.id})}">Delete</a>
+			</td>
+		</tr>
+		
+		</table>
+		
+		<ul class="pagination ">
+			<li th:class="${currentPage==status.index}?'active':'' " class="page-item text-center" th:each="page,status:${pages}">
+			<a th:href="@{/index(page=${status.index})}" class="page-link text-center" th:text="${status.index}"></a>
+			
+			</li>
+		</ul>
+
+		</div>
+	</main>
+	
+	<!-- Footer -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
